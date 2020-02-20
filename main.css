@@ -1,0 +1,9 @@
+.chartContainer {
+  height: 200px;
+  width: 200px;
+  background-color: purple;
+}
+
+.border {
+  border: 2px solid black;
+}
