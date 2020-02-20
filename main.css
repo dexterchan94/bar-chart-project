@@ -1,9 +1,26 @@
-.chartContainer {
-  height: 200px;
-  width: 200px;
-  background-color: purple;
+html {
+  height: 100vh;
 }
 
-.border {
-  border: 2px solid black;
+body {
+  height: 100%;
+}
+
+#chartContainer {
+  height: 80%;
+  width: 70%;
+  margin: auto;
+  border: 1px solid black;
+}
+
+.chartTitle {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.dataContainer {
+  height: 60%;
+  width: 80%;
+  border: 1px solid black;
+  margin-left: 15%;
 }
