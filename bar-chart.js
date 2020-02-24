@@ -11,9 +11,10 @@ $(document).ready(function() {
   //   1111, 2222, 3333, 4444, 5555];
 
   let options = {
-    title: "Dexter's Cookie Consumption",
+    chartTitle: "Dexter's Cookie Consumption",
     yAxisTitle: "Number of Cookies",
-    xAxisTitle: "Cookie Type"
+    xAxisTitle: "Cookie Type",
+    barValuePosition: "flex-start" // flex-start (top), center, or flex-end (bottom)
   };
   let element = ".chartContainer";
 
@@ -22,10 +23,10 @@ $(document).ready(function() {
 
   // Draw individual chart components
   function drawBarChart(data, options, element) {
-    drawChartTitle(options.title);
+    drawChartTitle(options.chartTitle);
     drawYAxisTitle(options.yAxisTitle);
     drawYAxis(data);
-    drawChartGrid(data);
+    drawChartGrid(data, options);
     drawXAxis(data);
     drawXAxisTitle(options.xAxisTitle);
   }
@@ -73,7 +74,7 @@ $(document).ready(function() {
   }
 
   // Draw chart grid and all data bars
-  function drawChartGrid(data) {
+  function drawChartGrid(data, options) {
     $(".chartContainer").append("<div class='chartGrid'></div>");
 
     let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
@@ -81,6 +82,8 @@ $(document).ready(function() {
       $(".chartGrid").append("<div class='bar bar" + i + "'></div>");
       let height = data[i] / maximum * 100;
       $(".bar" + i).css("height", height + "%");
+      $(".bar" + i).append("<p class='barValue'>" + data[i] + "</p>");
+      $(".barValue").css("align-self", options.barValuePosition);
     }
   }
 
