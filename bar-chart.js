@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  // Specify data, options, and element to create chart in
+  // Specify data, options, and element in which to create the chart
+
   // let data = [
   //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
   //   0.01, 0.02, 0.03, 0.04, 0.05];
@@ -15,7 +16,8 @@ $(document).ready(function() {
     yAxisTitle: "Number of Cookies",
     xAxisTitle: "Cookie Type",
     barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
-    barColor: "lightblue" // enter any valid color (word, hex, or rgba)
+    barColor: "lightblue", // enter any valid color (word, hex, or rgba)
+    barLabelColor: "black" // enter any valid color (word, hex, or rgba)
   };
   let element = ".chartContainer";
 
@@ -28,7 +30,7 @@ $(document).ready(function() {
     drawYAxisTitle(options.yAxisTitle);
     drawYAxis(data);
     drawChartGrid(data, options);
-    drawXAxis(data);
+    drawXAxis(data, options);
     drawXAxisTitle(options.xAxisTitle);
   }
 
@@ -98,7 +100,7 @@ $(document).ready(function() {
   }
 
   // Draw x-axis labels
-  function drawXAxis(data) {
+  function drawXAxis(data, options) {
     $(".chartContainer").append("<div class='emptyBox'></div>");
     $(".chartContainer").append("<div class='xAxis'></div>");
 
@@ -108,6 +110,8 @@ $(document).ready(function() {
       $(".xAxis").append("<div class='xAxisLabel'>" + data[0][i] + "</div>");
       $(".xAxisLabel").css("width", barWidth + "%");
     }
+    // Set color of x-axis labels
+    $(".xAxisLabel").css("color", options.barLabelColor);
   }
 
   // Draw x-axis title
