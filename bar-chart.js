@@ -1,10 +1,19 @@
 $(document).ready(function() {
   // Specify data, options, and element to create chart in
-  let data = [9, 12, 34, 56, 98];
+  // let data = [
+  //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
+  //   0.01, 0.02, 0.03, 0.04, 0.05];
+  let data = [
+    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip"],
+    9, 12, 34];
+  // let data = [
+  //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
+  //   1111, 2222, 3333, 4444, 5555];
+
   let options = {
-    title: "Chart Title",
-    yAxisTitle: "Y Axis Title",
-    xAxisTitle: "X Axis Title"
+    title: "Dexter's Cookie Consumption",
+    yAxisTitle: "Number of Cookies",
+    xAxisTitle: "Cookie Type"
   };
   let element = ".chartContainer";
 
@@ -19,77 +28,75 @@ $(document).ready(function() {
     drawChartGrid(data);
     drawXAxis(data);
     drawXAxisTitle(options.xAxisTitle);
-    // createData(data);
   }
 
+  // Draw chart title
   function drawChartTitle(title) {
     $(".chartContainer").append("<div class='chartTitle'>" + title + "</div>");
   }
 
+  // Draw y-axis title
   function drawYAxisTitle(title) {
     $(".chartContainer").append("<div class='yAxisTitle'>" + title + "</div>");
   }
 
+  // Draw y-axis labels that are properly scaled to the data and have an
+  // appropriate number of decimal places
   function drawYAxis(data) {
     $(".chartContainer").append("<div class='yAxis'></div>");
-    let maximum = Math.max.apply(null, data);
-    $(".yAxis").append("<div class='yAxisLabel'>" + maximum + "</div>");
-    $(".yAxis").append("<div class='yAxisLabel'>" + maximum * 0.8 + "</div>");
-    $(".yAxis").append("<div class='yAxisLabel'>" + maximum * 0.6 + "</div>");
-    $(".yAxis").append("<div class='yAxisLabel'>" + maximum * 0.4 + "</div>");
-    $(".yAxis").append("<div class='yAxisLabel'>" + maximum * 0.2 + "</div>");
-    $(".yAxis").append("<div class='yAxisLabel'>" + 0 + "</div>");
+    let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
+    let order = Math.floor(Math.log(maximum) / Math.LN10
+                       + 0.000000001);
+    for (let i = 1; i > 0; i = i - 0.2) {
+      if (order < 0) {
+        $(".yAxis").append("<div class='yAxisLabel'>" + (maximum * i).toFixed(Math.abs(order-1)) + "</div>");
+      } else {
+        $(".yAxis").append("<div class='yAxisLabel'>" + (maximum * i).toFixed(0) + "</div>");
+      }
+    }
   }
 
+  // Calculate a maximum value for the y-axis scale that is slightly larger
+  // than the largest value in the dataset and is rounded nicely
+  function maxScale(n) {
+    let order = Math.floor(Math.log(n) / Math.LN10
+                       + 0.000000001);
+    let multiple = Math.pow(10,order);
+    let result = Math.ceil(n * 1.1 / multiple) * multiple;
+    if (order > 0) {
+      return result;
+    } else if (order == 0) {
+      return result.toFixed(1);
+    } else {
+      return result.toFixed(Math.abs(order));
+    }
+  }
+
+  // Draw chart grid and all data bars
   function drawChartGrid(data) {
     $(".chartContainer").append("<div class='chartGrid'></div>");
-    $(".chartGrid").append("<div class='bar'></div>");
-    $(".chartGrid").append("<div class='bar'></div>");
-    $(".chartGrid").append("<div class='bar'></div>");
-    $(".chartGrid").append("<div class='bar'></div>");
-    $(".chartGrid").append("<div class='bar'></div>");
+
+    let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
+    for (let i = 1; i < data.length; i++) {
+      $(".chartGrid").append("<div class='bar bar" + i + "'></div>");
+      let height = data[i] / maximum * 100;
+      $(".bar" + i).css("height", height + "%");
+    }
   }
 
+  // Draw x-axis labels
   function drawXAxis(data) {
     $(".chartContainer").append("<div class='emptyBox'></div>");
     $(".chartContainer").append("<div class='xAxis'></div>");
-    $(".xAxis").append("<div class='xAxisLabel'>Label1</div>");
-    $(".xAxis").append("<div class='xAxisLabel'>Label2</div>");
-    $(".xAxis").append("<div class='xAxisLabel'>Label3</div>");
-    $(".xAxis").append("<div class='xAxisLabel'>Label4</div>");
-    $(".xAxis").append("<div class='xAxisLabel'>Label5</div>");
+    for (let i = 0; i < data[0].length; i++) {
+      $(".xAxis").append("<div class='xAxisLabel'>" + data[0][i] + "</div>");
+    }
   }
 
+  // Draw x-axis title
   function drawXAxisTitle(title) {
     $(".chartContainer").append("<div class='xAxisTitle'>" + title + "</div>");
   }
-
-  // function createData(data) {
-  //   $(".chartContainer").append("<div class='dataContainer'></div>");
-  //   $(".dataContainer").css("position", "relative");
-
-  //   let maximum = Math.max.apply(null, data);
-
-  //   for (let i = 0; i < data.length; i++) {
-  //     $(".dataContainer").append("<div class='dataBar" + i + "'></div>");
-
-  //     let heightFraction = data[i] / maximum * 100;
-  //     $(".dataBar" + i).css("height", heightFraction + "%");
-
-  //     $(".dataBar" + i).css("width", "10%");
-  //     $(".dataBar" + i).css("background-color", "green");
-  //     $(".dataBar" + i).css("display", "inline-block");
-  //     $(".dataBar" + i).css("position", "absolute");
-  //     $(".dataBar" + i).css("bottom", "0");
-  //     $(".dataBar" + i).css("border", "1px solid black");
-  //     $(".dataBar" + i).css("margin-left", i * 20 + "%");
-  //   }
-  // }
-
-
-
-
-
 
 
 
