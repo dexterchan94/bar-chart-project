@@ -12,14 +12,16 @@ $(document).ready(function() {
   //   1111, 2222, 3333, 4444, 5555];
 
   let options = {
-    chartWidth: "60%",
-    chartHeight: "60%",
-    chartTitle: "Dexter's Cookie Consumption",
-    yAxisTitle: "Number of Cookies",
-    xAxisTitle: "Cookie Type",
+    chartWidth: "60%", // use valid css sizing
+    chartHeight: "60%", // use valid css sizing
+    chartTitle: "Dexter's Cookie Consumption", // enter chart title
+    chartTitleColor: "black", // enter any valid css color
+    chartTitleFontSize: "2rem", // enter a valid css font size
+    yAxisTitle: "Number of Cookies", // enter title for y-axis
+    xAxisTitle: "Cookie Type", // enter title for x-axis
     barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
-    barColor: "lightblue", // enter any valid color (word, hex, or rgba)
-    barLabelColor: "black", // enter any valid color (word, hex, or rgba)
+    barColor: "lightblue", // enter any valid css color
+    barLabelColor: "black", // enter any valid css color
     barSpacing: "5%" // "1%" (small), "3%" (medium), "5%" (large)
   };
   let element = ".chartContainer";
@@ -29,22 +31,24 @@ $(document).ready(function() {
 
   // Draw individual chart components
   function drawBarChart(data, options, element) {
-    drawChartTitle(options.chartTitle);
-    drawYAxisTitle(options.yAxisTitle);
+    drawChartTitle(options);
+    drawYAxisTitle(options);
     drawYAxis(data);
     drawChartGrid(data, options);
     drawXAxis(data, options);
-    drawXAxisTitle(options.xAxisTitle);
+    drawXAxisTitle(options);
   }
 
   // Draw chart title
-  function drawChartTitle(title) {
-    $(".chartContainer").append("<div class='chartTitle'>" + title + "</div>");
+  function drawChartTitle(options) {
+    $(".chartContainer").append("<div class='chartTitle'>" + options.chartTitle + "</div>");
+    $(".chartTitle").css("color", options.chartTitleColor);
+    $(".chartTitle").css("font-size", options.chartTitleFontSize);
   }
 
   // Draw y-axis title
-  function drawYAxisTitle(title) {
-    $(".chartContainer").append("<div class='yAxisTitle'>" + title + "</div>");
+  function drawYAxisTitle(options) {
+    $(".chartContainer").append("<div class='yAxisTitle'>" + options.yAxisTitle + "</div>");
   }
 
   // Draw y-axis labels that are properly scaled to the data and have an
@@ -124,8 +128,8 @@ $(document).ready(function() {
   }
 
   // Draw x-axis title
-  function drawXAxisTitle(title) {
-    $(".chartContainer").append("<div class='xAxisTitle'>" + title + "</div>");
+  function drawXAxisTitle(options) {
+    $(".chartContainer").append("<div class='xAxisTitle'>" + options.xAxisTitle + "</div>");
   }
 
 
