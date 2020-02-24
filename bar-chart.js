@@ -41,7 +41,8 @@ $(document).ready(function() {
 
   // Draw chart title
   function drawChartTitle(options) {
-    $(".chartContainer").append("<div class='chartTitle'>" + options.chartTitle + "</div>");
+    // $(".chartContainer").append("<div class='chartTitle'>" + options.chartTitle + "</div>");
+    $(".chartContainer").append("<input type='text' placeholder='Chart Title...' name='chartTitle' class='chartTitle' ></input>");
     $(".chartTitle").css("color", options.chartTitleColor);
     $(".chartTitle").css("font-size", options.chartTitleFontSize);
   }
