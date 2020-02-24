@@ -5,19 +5,22 @@ $(document).ready(function() {
   //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
   //   0.01, 0.02, 0.03, 0.04, 0.05];
   let data = [
-    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Potato", "Cake"],
-    9, 12, 34, 8, 44];
+    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Potato"],
+    9, 12, 34, 8];
   // let data = [
   //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
   //   1111, 2222, 3333, 4444, 5555];
 
   let options = {
+    chartWidth: "60%",
+    chartHeight: "60%",
     chartTitle: "Dexter's Cookie Consumption",
     yAxisTitle: "Number of Cookies",
     xAxisTitle: "Cookie Type",
     barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
     barColor: "lightblue", // enter any valid color (word, hex, or rgba)
-    barLabelColor: "black" // enter any valid color (word, hex, or rgba)
+    barLabelColor: "black", // enter any valid color (word, hex, or rgba)
+    barSpacing: "5%" // "1%" (small), "3%" (medium), "5%" (large)
   };
   let element = ".chartContainer";
 
@@ -97,6 +100,9 @@ $(document).ready(function() {
     }
     // Set color of data bars
     $(".bar").css("background-color", options.barColor);
+
+    // Set spacing of data bars
+    $(".bar").css("margin", "0 " + options.barSpacing);
   }
 
   // Draw x-axis labels
@@ -112,6 +118,9 @@ $(document).ready(function() {
     }
     // Set color of x-axis labels
     $(".xAxisLabel").css("color", options.barLabelColor);
+
+    // Set spacing of x-axis labels
+    $(".xAxisLabel").css("margin", "0 " + options.barSpacing);
   }
 
   // Draw x-axis title
