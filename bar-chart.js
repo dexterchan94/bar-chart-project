@@ -14,7 +14,8 @@ $(document).ready(function() {
     chartTitle: "Dexter's Cookie Consumption",
     yAxisTitle: "Number of Cookies",
     xAxisTitle: "Cookie Type",
-    barValuePosition: "flex-start" // "flex-start" (top), "center", or "flex-end" (bottom)
+    barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
+    barColor: "lightblue" // enter any valid color (word, hex, or rgba)
   };
   let element = ".chartContainer";
 
@@ -92,6 +93,8 @@ $(document).ready(function() {
       $(".bar" + i).append("<p class='barValue'>" + data[i] + "</p>");
       $(".barValue").css("align-self", options.barValuePosition);
     }
+    // Set color of data bars
+    $(".bar").css("background-color", options.barColor);
   }
 
   // Draw x-axis labels
