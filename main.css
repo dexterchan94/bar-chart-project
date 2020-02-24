@@ -77,6 +77,11 @@ body {
   padding: 10px 0;
 }
 
+.xAxisLabel {
+  flex-wrap: wrap;
+  text-align: center;
+}
+
 .xAxisTitle {
   width: 100%;
   text-align: center;

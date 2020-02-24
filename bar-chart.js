@@ -4,8 +4,8 @@ $(document).ready(function() {
   //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
   //   0.01, 0.02, 0.03, 0.04, 0.05];
   let data = [
-    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip"],
-    9, 12, 34];
+    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Potato", "Cake"],
+    9, 12, 34, 8, 44];
   // let data = [
   //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
   //   1111, 2222, 3333, 4444, 5555];
@@ -14,7 +14,7 @@ $(document).ready(function() {
     chartTitle: "Dexter's Cookie Consumption",
     yAxisTitle: "Number of Cookies",
     xAxisTitle: "Cookie Type",
-    barValuePosition: "flex-start" // flex-start (top), center, or flex-end (bottom)
+    barValuePosition: "flex-start" // "flex-start" (top), "center", or "flex-end" (bottom)
   };
   let element = ".chartContainer";
 
@@ -60,8 +60,7 @@ $(document).ready(function() {
   // Calculate a maximum value for the y-axis scale that is slightly larger
   // than the largest value in the dataset and is rounded nicely
   function maxScale(n) {
-    let order = Math.floor(Math.log(n) / Math.LN10
-                       + 0.000000001);
+    let order = Math.floor(Math.log(n) / Math.LN10 + 0.000000001);
     let multiple = Math.pow(10,order);
     let result = Math.ceil(n * 1.1 / multiple) * multiple;
     if (order > 0) {
@@ -75,13 +74,21 @@ $(document).ready(function() {
 
   // Draw chart grid and all data bars
   function drawChartGrid(data, options) {
+    // Add container for data
     $(".chartContainer").append("<div class='chartGrid'></div>");
 
+    // Calculate maximum y-axis label value
     let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
+
+    // Calculate bar width
+    let barWidth = 100 / (data.length + 2);
+
+    // Add data bars
     for (let i = 1; i < data.length; i++) {
       $(".chartGrid").append("<div class='bar bar" + i + "'></div>");
       let height = data[i] / maximum * 100;
       $(".bar" + i).css("height", height + "%");
+      $(".bar" + i).css("width", barWidth + "%");
       $(".bar" + i).append("<p class='barValue'>" + data[i] + "</p>");
       $(".barValue").css("align-self", options.barValuePosition);
     }
@@ -91,8 +98,12 @@ $(document).ready(function() {
   function drawXAxis(data) {
     $(".chartContainer").append("<div class='emptyBox'></div>");
     $(".chartContainer").append("<div class='xAxis'></div>");
+
+    let barWidth = 100 / (data.length + 2);
+
     for (let i = 0; i < data[0].length; i++) {
       $(".xAxis").append("<div class='xAxisLabel'>" + data[0][i] + "</div>");
+      $(".xAxisLabel").css("width", barWidth + "%");
     }
   }
 
