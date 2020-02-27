@@ -55,7 +55,6 @@ input:focus {
 }
 
 .bar {
-  background-color: green;
   align-self: flex-end;
   margin: 0 5%;
   text-align: center;

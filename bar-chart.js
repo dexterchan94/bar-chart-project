@@ -1,15 +1,12 @@
 $(document).ready(function() {
   // Specify data, options, and element in which to create the chart
 
-  // let data = [
-  //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
-  //   0.01, 0.02, 0.03, 0.04, 0.05];
-  let data = [
-    ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Potato"],
-    9, 12, 34, 8];
-  // let data = [
-  //   ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
-  //   1111, 2222, 3333, 4444, 5555];
+  let data = {
+    barLabels: ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Double Chocolate"],
+    dataValues: [9, 12, 34, 8],
+    barColors: ["red", "yellow", "green", "blue"],
+    labelColors: ["black", "black", "black", "black"]
+  };
 
   let options = {
     chartWidth: "60%", // use valid css sizing
@@ -20,7 +17,6 @@ $(document).ready(function() {
     yAxisTitle: "Number of Cookies", // enter title for y-axis
     xAxisTitle: "Cookie Type", // enter title for x-axis
     barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
-    barColor: "lightblue", // enter any valid css color
     barLabelColor: "black", // enter any valid css color
     barSpacing: "5%" // "1%" (small), "3%" (medium), "5%" (large)
   };
@@ -56,7 +52,7 @@ $(document).ready(function() {
   // appropriate number of decimal places
   function drawYAxis(data) {
     $(".chartContainer").append("<div class='yAxis'></div>");
-    let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
+    let maximum = maxScale(Math.max.apply(null, data.dataValues.slice(1, data.dataValues.length)));
     let order = Math.floor(Math.log(maximum) / Math.LN10
                        + 0.000000001);
     for (let i = 1; i > 0; i = i - 0.2) {
@@ -89,22 +85,21 @@ $(document).ready(function() {
     $(".chartContainer").append("<div class='chartGrid'></div>");
 
     // Calculate maximum y-axis label value
-    let maximum = maxScale(Math.max.apply(null, data.slice(1, data.length)));
+    let maximum = maxScale(Math.max.apply(null, data.dataValues.slice(1, data.dataValues.length)));
 
     // Calculate bar width
-    let barWidth = 100 / (data.length + 2);
+    let barWidth = 100 / (data.dataValues.length + 2);
 
     // Add data bars
-    for (let i = 1; i < data.length; i++) {
+    for (let i = 0; i < data.dataValues.length; i++) {
       $(".chartGrid").append("<div class='bar bar" + i + "'></div>");
-      let height = data[i] / maximum * 100;
+      let height = data.dataValues[i] / maximum * 100;
       $(".bar" + i).css("height", height + "%");
       $(".bar" + i).css("width", barWidth + "%");
-      $(".bar" + i).append("<p class='barValue'>" + data[i] + "</p>");
+      $(".bar" + i).append("<p class='barValue'>" + data.dataValues[i] + "</p>");
+      $(".bar" + i).css("background-color", data.barColors[i]);
       $(".barValue").css("align-self", options.barValuePosition);
     }
-    // Set color of data bars
-    $(".bar").css("background-color", options.barColor);
 
     // Set spacing of data bars
     $(".bar").css("margin", "0 " + options.barSpacing);
@@ -115,14 +110,13 @@ $(document).ready(function() {
     $(".chartContainer").append("<div class='emptyBox'></div>");
     $(".chartContainer").append("<div class='xAxis'></div>");
 
-    let barWidth = 100 / (data.length + 2);
+    let barWidth = 100 / (data.barLabels.length + 2);
 
-    for (let i = 0; i < data[0].length; i++) {
-      $(".xAxis").append("<div class='xAxisLabel'>" + data[0][i] + "</div>");
+    for (let i = 0; i < data.barLabels.length; i++) {
+      $(".xAxis").append("<div class='xAxisLabel xAxisLabel" + i + "'>" + data.barLabels[i] + "</div>");
       $(".xAxisLabel").css("width", barWidth + "%");
+      $(".xAxisLabel" + i).css("color", data.labelColors[i]);
     }
-    // Set color of x-axis labels
-    $(".xAxisLabel").css("color", options.barLabelColor);
 
     // Set spacing of x-axis labels
     $(".xAxisLabel").css("margin", "0 " + options.barSpacing);
