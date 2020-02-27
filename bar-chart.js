@@ -1,22 +1,30 @@
 $(document).ready(function() {
   // Specify data, options, and element in which to create the chart
 
+  // let data = {
+  //   barLabels: ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Double Chocolate"],
+  //   dataValues: [9, 12, 34, 8],
+  //   barColors: ["red", "yellow", "green", "blue"],
+  //   labelColors: ["black", "black", "black", "black"]
+  // };
+
   let data = {
-    barLabels: ["Oatmeal Raisin", "Peanut Butter", "Chocolate Chip", "Double Chocolate"],
-    dataValues: [9, 12, 34, 8],
-    barColors: ["red", "yellow", "green", "blue"],
-    labelColors: ["black", "black", "black", "black"]
+    legend: ["Cheese", "Pepperoni", "Hawaiian"],
+    barLabels: ["Raphael", "Leonardo", "Michaelangelo", "Donatello"],
+    dataValues: [[4, 4, 4], [2, 4, 6], [8, 2, 0], [3, 1, 3]],
+    legendColors: ["yellow", "pink", "green"],
+    labelColors: ["red", "blue", "orange", "purple"]
   };
 
   let options = {
     chartWidth: "60%", // use valid css sizing
     chartHeight: "60%", // use valid css sizing
-    chartTitle: "Dexter's Cookie Consumption", // enter chart title
+    chartTitle: "Pizza Consumption", // enter chart title
     chartTitleColor: "black", // enter any valid css color
     chartTitleFontSize: "2rem", // enter a valid css font size
-    yAxisTitle: "Number of Cookies", // enter title for y-axis
-    xAxisTitle: "Cookie Type", // enter title for x-axis
-    barValuePosition: "flex-start", // "flex-start" (top), "center", or "flex-end" (bottom)
+    yAxisTitle: "Number of Slices Eaten", // enter title for y-axis
+    xAxisTitle: "Pizza Type", // enter title for x-axis
+    barValuePosition: "center", // "flex-start" (top), "center", or "flex-end" (bottom)
     barLabelColor: "black", // enter any valid css color
     barSpacing: "5%" // "1%" (small), "3%" (medium), "5%" (large)
   };
@@ -30,6 +38,7 @@ $(document).ready(function() {
   function drawBarChart(data, options, element) {
     drawChartContainer(element);
     drawChartTitle(options);
+    drawChartLegend(data);
     drawYAxisTitle(options);
     drawYAxis(data);
     drawChartGrid(data, options);
@@ -37,7 +46,7 @@ $(document).ready(function() {
     drawXAxisTitle(options);
   }
 
-  // Draw chart container
+  // Add chart container to selected element
   function drawChartContainer(element) {
     $(element).prepend("<div class='chartContainer'></div>");
     $(element).css("height", "100%");
@@ -51,6 +60,16 @@ $(document).ready(function() {
     $(".chartTitle").css("font-size", options.chartTitleFontSize);
   }
 
+  // Draw chart legend
+  function drawChartLegend(data) {
+    $(".chartContainer").append("<div class='chartLegend'></div>");
+    for (let i = 0; i < data.legend.length; i++) {
+      $(".chartLegend").append("<div class='legendKey legendKey" + i + "'></div>");
+      $(".legendKey" + i).css("background-color", data.legendColors[i]);
+      $(".chartLegend").append("<span>" + data.legend[i] + "</span>");
+    }
+  }
+
   // Draw y-axis title
   function drawYAxisTitle(options) {
     $(".chartContainer").append("<div class='yAxisTitle'>" + options.yAxisTitle + "</div>");
@@ -60,7 +79,7 @@ $(document).ready(function() {
   // appropriate number of decimal places
   function drawYAxis(data) {
     $(".chartContainer").append("<div class='yAxis'></div>");
-    let maximum = maxScale(Math.max.apply(null, data.dataValues.slice(1, data.dataValues.length)));
+    let maximum = maxScale(tallestBar(data));
     let order = Math.floor(Math.log(maximum) / Math.LN10
                        + 0.000000001);
     for (let i = 1; i > 0; i = i - 0.2) {
@@ -72,8 +91,20 @@ $(document).ready(function() {
     }
   }
 
+  // Finds the array with the largest sum and returns the sum of that array
+  function tallestBar(data) {
+    let sum = 0;
+    for (let i = 0; i < data.dataValues.length; i++) {
+      let sumArray = data.dataValues[i].reduce((a, b) => a + b, 0);
+      if (sumArray > sum) {
+        sum = sumArray;
+      }
+    return sum;
+    }
+  }
+
   // Calculate a maximum value for the y-axis scale that is slightly larger
-  // than the largest value in the dataset and is rounded nicely
+  // than the largest value in the dataset and is rounded suitably
   function maxScale(n) {
     let order = Math.floor(Math.log(n) / Math.LN10 + 0.000000001);
     let multiple = Math.pow(10,order);
@@ -93,7 +124,7 @@ $(document).ready(function() {
     $(".chartContainer").append("<div class='chartGrid'></div>");
 
     // Calculate maximum y-axis label value
-    let maximum = maxScale(Math.max.apply(null, data.dataValues.slice(1, data.dataValues.length)));
+    let maximum = maxScale(tallestBar(data));
 
     // Calculate bar width
     let barWidth = 100 / (data.dataValues.length + 2);
@@ -101,12 +132,26 @@ $(document).ready(function() {
     // Add data bars
     for (let i = 0; i < data.dataValues.length; i++) {
       $(".chartGrid").append("<div class='bar bar" + i + "'></div>");
-      let height = data.dataValues[i] / maximum * 100;
-      $(".bar" + i).css("height", height + "%");
+      $(".bar" + i).css("height", "100%");
       $(".bar" + i).css("width", barWidth + "%");
-      $(".bar" + i).append("<p class='barValue'>" + data.dataValues[i] + "</p>");
-      $(".bar" + i).css("background-color", data.barColors[i]);
-      $(".barValue").css("align-self", options.barValuePosition);
+      // Add inner bars
+      for (let j = 0; j < data.dataValues[i].length; j++) {
+        // Create an inner bar if the value is non-zero
+        if (data.dataValues[i][j]) {
+          $(".bar" + i).prepend("<div class='innerBar" + i + j + "'></div");
+          let height = data.dataValues[i][j] / maximum * 100;
+          $(".innerBar" + i + j).css("height", height + "%");
+          $(".innerBar" + i + j).css("width", "100%");
+          $(".innerBar" + i + j).css("background-color", data.legendColors[j]);
+          $(".innerBar" + i + j).css("flex-wrap", "wrap");
+          $(".innerBar" + i + j).css("display", "flex");
+          $(".innerBar" + i + j).css("justify-content", "center");
+          $(".innerBar" + i + j).append("<p class='barValue'>" + data.dataValues[i][j] + "</p>");
+          $(".barValue").css("align-self", options.barValuePosition);
+          $(".barValue").css("margin", "0");
+        }
+
+      }
     }
 
     // Set spacing of data bars
