@@ -20,19 +20,27 @@ $(document).ready(function() {
     barLabelColor: "black", // enter any valid css color
     barSpacing: "5%" // "1%" (small), "3%" (medium), "5%" (large)
   };
-  let element = ".chartContainer";
+
+  let element = "#testDiv"; // Use a jQuery selector to select the element to put the chart into
 
   // Create chart
   drawBarChart(data, options, element);
 
   // Draw individual chart components
   function drawBarChart(data, options, element) {
+    drawChartContainer(element);
     drawChartTitle(options);
     drawYAxisTitle(options);
     drawYAxis(data);
     drawChartGrid(data, options);
     drawXAxis(data, options);
     drawXAxisTitle(options);
+  }
+
+  // Draw chart container
+  function drawChartContainer(element) {
+    $(element).prepend("<div class='chartContainer'></div>");
+    $(element).css("height", "100%");
   }
 
   // Draw chart title
