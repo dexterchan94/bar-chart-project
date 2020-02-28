@@ -1,9 +1,17 @@
 $(document).ready(function() {
   // Specify data, options, and element in which to create the chart
+  // let data = {
+  //   dataValues: [[4, 4, 4], [2, 4, 6], [8, 2, 0], [3, 1, 3]], // for a normal bar chart use multiple arrays with 1 value in each array
+  //   legend: ["Cheese", "Pepperoni", "Hawaiian"], // for stacked bar charts
+  //   legendColors: ["yellow", "pink", "green"], // bar colors
+  //   barLabels: ["Raphael", "Leonardo", "Michaelangelo", "Donatello"], // x-axis labels
+  //   labelColors: ["red", "blue", "orange", "purple"] // x-axis label colors
+  // };
+
   let data = {
-    dataValues: [[4, 4, 4], [2, 4, 6], [8, 2, 0], [3, 1, 3]], // for a normal bar chart use multiple arrays with 1 value in each array
-    legend: ["Cheese", "Pepperoni", "Hawaiian"], // for stacked bar charts
-    legendColors: ["yellow", "pink", "green"], // bar colors
+    dataValues: [[4], [2], [5], [3]], // for a normal bar chart use multiple arrays with 1 value in each array
+    legend: ["Cheese"], // for stacked bar charts
+    legendColors: ["yellow"], // bar colors
     barLabels: ["Raphael", "Leonardo", "Michaelangelo", "Donatello"], // x-axis labels
     labelColors: ["red", "blue", "orange", "purple"] // x-axis label colors
   };

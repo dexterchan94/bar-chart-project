@@ -11,13 +11,15 @@ A developer looking to add a bar chart to a webpage can do so easily by specifyi
 * options
 * element
 
+After this has been done, simply run the page and the bar chart will be created in the specified element.
+
 ### The 'data' Variable
 
 The 'data' variable includes the following:
 * An array containing all of the values to be plotted. This array contains nested arrays that contain the values for each data set. 
   - For example, if you wanted to plot two bars where each bar contained a stack of three bars, this array would contain two nested arrays, each with three values. 
   - If you wanted to plot two bars for a standard (non-stacked) bar chart, then this array would contain two arrays, each with one value. 
-* An array specifying legend data for each data set
+* An array specifying the name of each data set (used to create a legend)
 * An array specifying the bar colors that should correspond to each data set
 * An array specifying the x-axis labels for the data
 * An array specifying the colors of the x-axis labels
@@ -39,3 +41,10 @@ The 'options' variable gives the user the ability to specify the following:
 
 The 'element' variable should be a jQuery selector that specifies the html element that the chart should be generated in.
 
+## Examples
+
+Standard Bar Chart
+<img src="images/standardBarChart.png">
+
+Stacked Bar Chart
+<img src="images/stackedBarChart.png">
