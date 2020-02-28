@@ -43,8 +43,9 @@ The 'element' variable should be a jQuery selector that specifies the html eleme
 
 ## Examples
 
-Standard Bar Chart
+### Standard Bar Chart
 <img src="images/standardBarChart.png">
 
-Stacked Bar Chart
+
+### Stacked Bar Chart
 <img src="images/stackedBarChart.png">
