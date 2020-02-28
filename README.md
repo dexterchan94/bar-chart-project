@@ -49,3 +49,7 @@ The 'element' variable should be a jQuery selector that specifies the html eleme
 
 ### Stacked Bar Chart
 <img src="images/stackedBarChart.png">
+
+## Git Pages Link
+
+[Git Pages](https://dexterchan94.github.io./)
