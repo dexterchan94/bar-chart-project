@@ -81,6 +81,13 @@ input:focus {
   opacity: 0.7;
 }
 
+.innerBar {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .emptyBox {
   width: 12.5%;
 }
