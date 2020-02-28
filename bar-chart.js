@@ -1,10 +1,10 @@
 $(document).ready(function() {
   // Specify data, options, and element in which to create the chart
   let data = {
-    legend: ["Cheese", "Pepperoni", "Hawaiian"], // for stacked bar charts
-    barLabels: ["Raphael", "Leonardo", "Michaelangelo", "Donatello"], // x-axis labels
     dataValues: [[4, 4, 4], [2, 4, 6], [8, 2, 0], [3, 1, 3]], // for a normal bar chart use multiple arrays with 1 value in each array
+    legend: ["Cheese", "Pepperoni", "Hawaiian"], // for stacked bar charts
     legendColors: ["yellow", "pink", "green"], // bar colors
+    barLabels: ["Raphael", "Leonardo", "Michaelangelo", "Donatello"], // x-axis labels
     labelColors: ["red", "blue", "orange", "purple"] // x-axis label colors
   };
 
