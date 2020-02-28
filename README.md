@@ -53,3 +53,10 @@ The 'element' variable should be a jQuery selector that specifies the html eleme
 ## Git Pages Link
 
 [Git Pages](https://dexterchan94.github.io./)
+
+## Resources Used
+
+* [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [W3 Schools](https://www.w3schools.com/jsref/default.asp)
+* [jQuery Tutorial for Beginners](https://www.youtube.com/watch?v=2OMzGhlIZpg)
+* [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/course/the-web-developer-bootcamp/)
